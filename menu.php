@@ -9,11 +9,11 @@
             <a class="brand">Projeto #1</a>
             <div class="nav-collapse collapse">
                 <ul class="nav">
-                    <li class="active"><a href="?menu=home.php">Home</a></li>
-                    <li><a href="?menu=empresa.php">Empresa</a></li>
-                    <li><a href="?menu=produtos.php">Produtos</a></li>
-                    <li><a href="?menu=servicos.php">Serviços</a></li>
-                    <li><a href="?menu=contato.php">Contato</a></li>
+                    <li class="active"><a href="home">Home</a></li>
+                    <li><a href="empresa">Empresa</a></li>
+                    <li><a href="produtos">Produtos</a></li>
+                    <li><a href="servicos">Serviços</a></li>
+                    <li><a href="contato">Contato</a></li>
                 </ul>
             </div><!--/.nav-collapse -->
         </div>

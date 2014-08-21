@@ -1,7 +1,7 @@
 <h1>Contato</h1>
 <p>Preencha os dados do nosso Formulário de Contato.</p>
 
-<form class="form-horizontal" action="index.php?menu=contato-form.php" method="post">
+<form class="form-horizontal" action="contato-form" method="post">
 
     <!-- nome -->
     <div class="form-group">
