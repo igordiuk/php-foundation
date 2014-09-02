@@ -1,6 +1,9 @@
 <?php
+#setar arquivo de conexao com banco de dados
+include_once 'conn.php';
+
 #lista paginas do projeto em um array simples
-$pages = array("home", "empresa", "produtos", "servicos", "contato", "contato-form", "error");
+$pages = array("home", "empresa", "produtos", "servicos", "contato", "contato-form", "error", "buscar");
 
 #define funcao para encontrar a rota
 function buscar_rota($pages) {
@@ -51,14 +54,56 @@ function buscar_rota($pages) {
     }
 }
 
-#chama rota para carregar conteudo
-$content = buscar_rota($pages);
+
+function buscar_conteudo_bd($pages) {
+
+    #encontra a rota url completa
+    $rota = parse_url("http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
+
+    #extrai o nome da url removendo apenas a primeira "/"
+    $url = substr($rota['path'], 1, strlen($rota['path'])-1);
+
+    #abrir uma conexao com o banco de dados e setar charset para UTF-8
+    $conteudoBD = Conectar();
+
+    #definir a string de consulta
+    $sql = "select pagina, conteudo from menu where pagina = :url";
+
+    #prepara a string
+    $stmt = $conteudoBD->prepare($sql);
+
+    #define o valor do parametro a ser passado
+    $stmt->bindValue("url", $url);
+
+    #executa a consulta
+    $stmt->execute();
+
+    #carrega o array com o conteudo da tabela
+    $res = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    #retorna o valor do conteudo
+    return $res['conteudo'];
+
+    $conteudoBD = NULL;
+
+}
+
+#carrega variavel com conteudo da página
+$texto = buscar_conteudo_bd($pages);
+
+#caso não encontre texto vindo do banco de dados, busca pela pagina, normalmente
+if (!$texto) {
+
+    #chama rota para carregar conteudo
+    $content = buscar_rota($pages);
+
+}
 
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <title>Code Education - PHP Foundation: Site Simples em PHP</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
@@ -83,7 +128,22 @@ $content = buscar_rota($pages);
 <?php require_once('menu.php'); ?>
 
 <div class="container">
-    <?php require_once($content); ?>
+
+    <?php
+
+    if ($texto) {
+
+        #encontrou texto do banco de dados
+        echo $texto;
+
+    } else {
+
+        #utiliza metodo antigo - atraves de paginas estaticas
+        require_once($content);
+
+    }
+    ?>
+
 </div> <!-- /container -->
 
 <!-- footer -->

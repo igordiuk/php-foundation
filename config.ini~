@@ -1,0 +1,6 @@
+host = localhost
+name = cursofix
+user = root
+pass = info
+type = mysql
+port = 3306
