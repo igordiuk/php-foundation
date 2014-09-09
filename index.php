@@ -3,7 +3,8 @@
 include_once 'conn.php';
 
 #lista paginas do projeto em um array simples
-$pages = array("home", "empresa", "produtos", "servicos", "contato", "contato-form", "error", "buscar");
+$pages = array("home", "empresa", "produtos", "servicos", "contato", "contato-form", "error", "buscar",
+               "admin", "admin-form", "admin-editar", "admin-logout");
 
 #define funcao para encontrar a rota
 function buscar_rota($pages) {
