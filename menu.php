@@ -30,13 +30,15 @@ $menu = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             echo "<li><a href='" . $link['pagina'] . "'>" . $link['link'] . "</a></li>";
                         }
                     }
+                    //carregar link de contato em separado, por conter formulario não fica no banco de dados
+                    echo "<li><a href='contato'>Contato</a></li>";
+
                     //fechar conexao com o banco de dados
                     $menuBD = NULL;
 
                     //verifica sessao e trata link do Admin de forma inteligente
-                    if (isset($_SESSION['acesso']) and ($_SESSION['acesso']!=1)) {
+                    if (!isset($_SESSION['acesso']) or ($_SESSION['acesso']==0)) {
                        echo "<li><a href='admin'>Admin</a></li>";
-
                     } else {
                        echo "<li><a href='admin-form'>Admin</a></li>";
                        echo "<li><a href='admin-logout'>Logout</a></li>";
@@ -47,8 +49,9 @@ $menu = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <li><a href="empresa">Empresa</a></li>
                     <li><a href="produtos">Produtos</a></li>
                     <li><a href="servicos">Serviços</a></li>
-                    <li><a href="contato">Contato</a></li>
                     -->
+
+
                 </ul>
                 <ul class="navbar-text">
                     <form class="form-search" action="buscar" method="get">

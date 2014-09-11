@@ -1,10 +1,7 @@
 <?php
-//inicializa sessao em primeira instancia
-//session_start();
-
 //verifica se usuario tem acesso a pagina verificando sua sessao, caso seja inativa, retorna com erro personalizado
-if ($_SESSION['acesso'] == 0) {
-    header('location: /admin?log=end');
+if (($_SESSION['acesso'] == 0) or  (!isset($_GET['p']))) {
+    header('location: /admin?log=login');
 }
 
 //recebe variaveis da pagina para carregar o conteúdo no formulario
